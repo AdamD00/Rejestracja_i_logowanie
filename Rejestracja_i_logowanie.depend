@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1668708768 source:d:\mrokon\programowanie\c++\rejestracja_i_logowanie\main.cpp
+	<iostream>
+	<windows.h>
+	<fstream>
+	<string>
+	<stdio.h>
+
