@@ -1,8 +1,25 @@
 # depslib dependency file v1.0
-1668708768 source:d:\mrokon\programowanie\c++\rejestracja_i_logowanie\main.cpp
+1668773907 source:d:\mrokon\programowanie\c++\rejestracja_i_logowanie\main.cpp
+	"Klient.h"
+
+1668773690 d:\mrokon\programowanie\c++\rejestracja_i_logowanie\klient.cpp
 	<iostream>
 	<windows.h>
 	<fstream>
 	<string>
+	<stdio.h>
+	"Klient.h"
+
+1668772552 d:\mrokon\programowanie\c++\rejestracja_i_logowanie\klient.hpp
+	<string>
+
+1668773833 source:d:\mrokon\programowanie\c++\rejestracja_i_logowanie\klient.cpp
+	"Klient.h"
+
+1668773827 d:\mrokon\programowanie\c++\rejestracja_i_logowanie\klient.h
+	<string>
+	<iostream>
+	<windows.h>
+	<fstream>
 	<stdio.h>
 
