@@ -1,5 +1,5 @@
-#ifndef Klient_h
-#define Klient_h
+#ifndef Funkcje_h
+#define Funkcje_h
 #include <string>
 #include <iostream>
 #include <windows.h>
@@ -12,16 +12,14 @@ private:
     std::string login, haslo,imie,nazwisko;
 
 public:
-    bool logowanie(string tab[][4], int il_uzytkownik);
+    bool logowanie(string** tab, int il_uzytkownik);
     void rejestracja();
     void wyswietl();
+    void usun_konto();
 };
 
 
-class Admin: public Klient
-{
-public:
-    void wyswietl_wszystkich();
-};
-
+string** wczytanie_bazy(string nazwa_pliku,int k);
+void zapis_bazy(string nazwa_pliku);
+int sprawdzenie_ilosc_uzyt(string nazwa_pliku);
 #endif

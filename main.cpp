@@ -1,54 +1,15 @@
 #include <vector>
-
-#include "Klient.h"
+#include "Funkcje.h"
 char wybor;
 int main()
 {
-
-    int uzyt = 0, cechy = 0;
     string plik_wczytujacy="klienci.txt", dane;
     cout<<"=======================Sprawdzanie ilosci uzytkownikow=============================="<<endl;
-        fstream plik;
-        plik.open(plik_wczytujacy,ios::in);
-        if(plik.good())
-        {
-            while(plik.eof()==false)
-            {
-                getline(plik,dane,';');
-                cechy++;
-                if(cechy%4 == 0)
-              {
-
-                  uzyt++;
-                  cechy = 0;
-              }
-            }
-        }
-        else
-        {
-            cout<<"PROBLEM Z PLIKIEM\nPRZERYWAM DZIALANIE";
-        }
-        plik.close();
-        cout<<"ILOSC UZYTKOWNIKOW\t"<<uzyt<<endl;
-         cout<<"=======================Tworzenie tabeli uzytkownikow=============================="<<endl;
-         string tablica[uzyt][4];
+    int ilosc =sprawdzenie_ilosc_uzyt(plik_wczytujacy);
 
 
     cout<<"=======================Wczytanie danych z pliku do tablicy=============================="<<endl;
-
-        plik.open(plik_wczytujacy,ios::in);
-        if(plik.good())
-        {
-             for(auto i = 0; i<uzyt; i++)
-                for (auto j = 0; j<4; j++)
-                    getline(plik,tablica[i][j],';');
-        }
-        else
-        {
-            cout<<"PROBLEM Z PLIKIEM\nPRZERYWAM DZIALANIE";
-        }
-        plik.close();
-
+   string** tablica=wczytanie_bazy(plik_wczytujacy,ilosc);
     do
     {
         cout<<"BAZA DANYCH 2000"<<endl
@@ -67,8 +28,7 @@ int main()
             else
             {
                 Klient aktualny;
-                cout<<uzyt<<endl;
-                if(aktualny.logowanie(tablica,uzyt))
+                if(aktualny.logowanie(tablica,ilosc))
                 {
                     cout<<"Wyswietlanie (W)"<<endl
                     <<"Wyjscie (X)\t"<<endl;

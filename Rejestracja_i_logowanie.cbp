@@ -32,8 +32,8 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
-		<Unit filename="Klient.cpp" />
-		<Unit filename="Klient.h" />
+		<Unit filename="Funkcje.cpp" />
+		<Unit filename="Funkcje.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
