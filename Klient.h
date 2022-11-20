@@ -12,9 +12,16 @@ private:
     std::string login, haslo,imie,nazwisko;
 
 public:
-    bool logowanie();
+    bool logowanie(string tab[][4], int il_uzytkownik);
     void rejestracja();
     void wyswietl();
+};
+
+
+class Admin: public Klient
+{
+public:
+    void wyswietl_wszystkich();
 };
 
 #endif
