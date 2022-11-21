@@ -31,13 +31,26 @@ int main()
                 if(aktualny.logowanie(tablica,ilosc))
                 {
                     cout<<"Wyswietlanie (W)"<<endl
+                    <<"Usun konto (U)"<<endl
                     <<"Wyjscie (X)\t"<<endl;
                     cin>>wybor;
-                    if(wybor == 'W') aktualny.wyswietl();
+                    switch (wybor)
+                    {
+                    case 'W':
+                        aktualny.wyswietl();
+                        break;
+                    case 'U':
+                        aktualny.usun_konto(tablica,ilosc);
+                        break;
+                    default:
+                        cout<<"Wyjscie"<<endl;
+                        break;
+                    }
                 }
             }
         }
     }while(wybor!= 'X');
-    delete tablica;
+    for(auto j=0;j<ilosc;j++) delete [] tablica[j];
+    delete [] tablica;
     return 0;
 }

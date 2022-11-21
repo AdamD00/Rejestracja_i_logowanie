@@ -57,8 +57,31 @@ void Klient::wyswietl()
 {
     cout<<"Uzytkownik:"<<this->imie<<" "<<this->nazwisko<<" \nLogin:"<<this->login<<endl;
 }
-void Klient::usun_konto()
+void Klient::usun_konto(string** tab, int il_uzytkownikow)
 {
+
+    cout<<"Zeby usunac konto wpisz \"Usun "<<this->login<<"\""<<endl;
+    string potwierdzenie;
+    cin.sync();
+    getline(cin, potwierdzenie);
+    cout<<potwierdzenie<<endl;
+    if(potwierdzenie == "Usun "+this->login)
+    {
+        for(int i=0; i<il_uzytkownikow;i++)
+        {
+            if(this->login == tab[i][0])
+            {
+               fstream plik;
+               plik.open("klienci.txt",ios::out);
+               for(int j=0; i<il_uzytkownikow;i++)
+                {
+                    if(j==i) continue;
+                    else plik<<tab[j][0]<<";"<<tab[j][1]<<";"<<tab[j][2]<<";"<<tab[j][3]<<";";
+                }
+
+            }
+        }
+    }
 }
 int sprawdzenie_ilosc_uzyt(string nazwa_pliku)
 {
@@ -108,7 +131,6 @@ string** wczytanie_bazy(string nazwa_pliku,int k)
             cout<<"PROBLEM Z PLIKIEM\nPRZERYWAM DZIALANIE";
         }
         plik.close();
-
         return tab;
 }
 void zapis_bazy(string nazwa_pliku)

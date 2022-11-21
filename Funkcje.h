@@ -15,7 +15,7 @@ public:
     bool logowanie(string** tab, int il_uzytkownik);
     void rejestracja();
     void wyswietl();
-    void usun_konto();
+    void usun_konto(string** tab, int il_uzytkownikow);
 };
 
 
