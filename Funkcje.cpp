@@ -159,3 +159,8 @@ string** wczytanie_bazy(string nazwa_pliku,int k)
 void kopia_bazy(string nazwa_pliku)
 {
 }
+void delete_array(string** tab, int il_uzytkownikow)
+{
+     for(auto j=0;j<il_uzytkownikow;j++) delete [] tab[j];
+        delete [] tab;
+}

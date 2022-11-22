@@ -22,5 +22,6 @@ public:
 string** wczytanie_bazy(string nazwa_pliku,int k);
 void kopia_bazy(string nazwa_pliku);
 int sprawdzenie_ilosc_uzyt(string nazwa_pliku);
+void delete_array(string** tab, int il_uzytkownikow);
 
 #endif

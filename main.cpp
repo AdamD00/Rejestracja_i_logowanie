@@ -23,6 +23,7 @@ int main()
                 aktualny.rejestracja(tablica,ilosc);
             }
         }
+         delete_array(tablica,ilosc);
     }
     else if(ilosc>0)
     {
@@ -72,8 +73,7 @@ int main()
                 }
             }
         }while(wybor!= 'X');
-        for(auto j=0;j<ilosc;j++) delete [] tablica[j];
-        delete [] tablica;
+        delete_array(tablica,ilosc);
     }
 
     return 0;
