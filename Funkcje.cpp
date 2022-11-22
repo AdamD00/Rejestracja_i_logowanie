@@ -36,11 +36,23 @@ bool Klient::logowanie(string** tab, int il_uzytkownikow)
         return false;
     }
 }
-void Klient::rejestracja()
+void Klient::rejestracja(string** tab, int il_uzytkownikow)
 {
     string login, haslo, imie, nazwisko;
-    cout<<"Wpisz login:";
-    cin>>login;
+    bool powtorzenie;
+    do
+    {
+        powtorzenie = false;
+        cout<<"Wpisz login:";
+        cin>>login;
+        for(int i = 0; i<il_uzytkownikow; i++)
+        if(login == tab[i][0])
+        {
+            powtorzenie = true;
+            break;
+        }
+        if(powtorzenie) cout<<"Login zajety\n";
+    }while(powtorzenie);
     cout<<"Wpisz haslo:";
     cin>>haslo;
     cout<<"Wpisz imie:";
@@ -48,18 +60,25 @@ void Klient::rejestracja()
     cout<<"Wpisz nazwisko:";
     cin>>nazwisko;
     fstream plik;
+    if(il_uzytkownikow>0)
+    {
     plik.open("klienci.txt",ios::out | ios::app);
     plik.seekp(-1,ios_base::end);
+    }
+    else plik.open("klienci.txt",ios::out);
+
     plik<<login<<";"<<haslo<<";"<<imie<<";"<<nazwisko<<";";
     plik.close();
 }
 void Klient::wyswietl()
 {
     cout<<"Uzytkownik:"<<this->imie<<" "<<this->nazwisko<<" \nLogin:"<<this->login<<endl;
+    cin.sync();
+    cin.get();
 }
-void Klient::usun_konto(string** tab, int il_uzytkownikow)
+bool Klient::usun_konto(string** tab, int il_uzytkownikow)
 {
-
+    bool udane=false;
     cout<<"Zeby usunac konto wpisz \"Usun "<<this->login<<"\""<<endl;
     string potwierdzenie;
     cin.sync();
@@ -71,6 +90,7 @@ void Klient::usun_konto(string** tab, int il_uzytkownikow)
         {
             if(this->login == tab[i][0])
             {
+                udane = true;
                fstream plik;
                plik.open("klienci.txt",ios::out);
                for(int j=0; i<il_uzytkownikow;i++)
@@ -78,10 +98,13 @@ void Klient::usun_konto(string** tab, int il_uzytkownikow)
                     if(j==i) continue;
                     else plik<<tab[j][0]<<";"<<tab[j][1]<<";"<<tab[j][2]<<";"<<tab[j][3]<<";";
                 }
+                plik.close();
 
             }
         }
+
     }
+    return udane;
 }
 int sprawdzenie_ilosc_uzyt(string nazwa_pliku)
 {
@@ -133,6 +156,6 @@ string** wczytanie_bazy(string nazwa_pliku,int k)
         plik.close();
         return tab;
 }
-void zapis_bazy(string nazwa_pliku)
+void kopia_bazy(string nazwa_pliku)
 {
 }

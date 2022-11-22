@@ -13,13 +13,14 @@ private:
 
 public:
     bool logowanie(string** tab, int il_uzytkownik);
-    void rejestracja();
+    void rejestracja(string** tab, int il_uzytkownikow);
     void wyswietl();
-    void usun_konto(string** tab, int il_uzytkownikow);
+    bool usun_konto(string** tab, int il_uzytkownikow);
 };
 
 
 string** wczytanie_bazy(string nazwa_pliku,int k);
-void zapis_bazy(string nazwa_pliku);
+void kopia_bazy(string nazwa_pliku);
 int sprawdzenie_ilosc_uzyt(string nazwa_pliku);
+
 #endif
