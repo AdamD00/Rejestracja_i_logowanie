@@ -3,6 +3,11 @@
 char wybor;
 int main()
 {
+    do
+    {
+
+
+    system("cls");
     string plik_wczytujacy="klienci.txt", dane;
     cout<<"=======================Sprawdzanie ilosci uzytkownikow=============================="<<endl;
     int ilosc =sprawdzenie_ilosc_uzyt(plik_wczytujacy);
@@ -10,6 +15,7 @@ int main()
     string** tablica=wczytanie_bazy(plik_wczytujacy,ilosc);
     if (ilosc == 0)
     {
+        tablica=wczytanie_bazy(plik_wczytujacy,ilosc);
         cout<<"BAZA DANYCH 2000"<<endl
         <<"REJESTROWANIE (R)"<<endl
         <<"WYJSCIE (X)"<<endl;
@@ -29,6 +35,8 @@ int main()
     {
         do
         {
+            tablica=wczytanie_bazy(plik_wczytujacy,ilosc);
+            system("cls");
             cout<<"BAZA DANYCH 2000"<<endl
             <<"LOGOWANIE (L)"<<endl
             <<"REJESTROWANIE (R)"<<endl
@@ -41,6 +49,8 @@ int main()
                 {
                     Klient aktualny;
                     aktualny.rejestracja(tablica,ilosc);
+                    delete_array(tablica,ilosc);
+                    ilosc =sprawdzenie_ilosc_uzyt(plik_wczytujacy);
                 }
                 else
                 {
@@ -70,12 +80,13 @@ int main()
                             }
                         }while(wybor!= 'X' && check == false);
                     }
+                    delete_array(tablica,ilosc);
                 }
             }
-        }while(wybor!= 'X');
-        delete_array(tablica,ilosc);
-    }
 
+        }while(wybor!= 'X');
+    }
+    }while(wybor!= 'X');
     return 0;
 }
 

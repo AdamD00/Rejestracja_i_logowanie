@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1669113533 source:d:\mrokon\programowanie\c++\rejestracja_i_logowanie\main.cpp
+1669114474 source:d:\mrokon\programowanie\c++\rejestracja_i_logowanie\main.cpp
 	<vector>
 	"Funkcje.h"
 
@@ -24,7 +24,7 @@
 	<fstream>
 	<stdio.h>
 
-1669112516 source:d:\mrokon\programowanie\c++\rejestracja_i_logowanie\funkcje.cpp
+1669113564 source:d:\mrokon\programowanie\c++\rejestracja_i_logowanie\funkcje.cpp
 	"Funkcje.h"
 
 1669113492 d:\mrokon\programowanie\c++\rejestracja_i_logowanie\funkcje.h

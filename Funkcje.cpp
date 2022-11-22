@@ -17,6 +17,8 @@ bool Klient::logowanie(string** tab, int il_uzytkownikow)
     if(!is_login)
     {
         cout<<"BRAK LOGINU\n";
+        cin.sync();
+        cin.get();
         return false;
     }
     cout<<"PASSWORD:";
