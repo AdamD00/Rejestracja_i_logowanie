@@ -38,7 +38,7 @@ bool Klient::logowanie(string** tab, int il_uzytkownikow)
         return false;
     }
 }
-void Klient::rejestracja(string** tab, int il_uzytkownikow)
+void Klient::rejestracja(string** tab, int il_uzytkownikow, string nazwa_pliku)
 {
     string login, haslo, imie, nazwisko;
     bool powtorzenie;
@@ -64,10 +64,10 @@ void Klient::rejestracja(string** tab, int il_uzytkownikow)
     fstream plik;
     if(il_uzytkownikow>0)
     {
-    plik.open("klienci.txt",ios::out | ios::app);
+    plik.open(nazwa_pliku,ios::out | ios::app);
     plik.seekp(-1,ios_base::end);
     }
-    else plik.open("klienci.txt",ios::out);
+    else plik.open(nazwa_pliku,ios::out);
 
     plik<<login<<";"<<haslo<<";"<<imie<<";"<<nazwisko<<";";
     plik.close();
@@ -78,7 +78,7 @@ void Klient::wyswietl()
     cin.sync();
     cin.get();
 }
-bool Klient::usun_konto(string** tab, int il_uzytkownikow)
+bool Klient::usun_konto(string** tab, int il_uzytkownikow, string nazwa_pliku)
 {
     bool udane=false;
     cout<<"Zeby usunac konto wpisz \"Usun "<<this->login<<"\""<<endl;
@@ -94,7 +94,7 @@ bool Klient::usun_konto(string** tab, int il_uzytkownikow)
             {
                 udane = true;
                fstream plik;
-               plik.open("klienci.txt",ios::out);
+               plik.open(nazwa_pliku,ios::out);
                for(int j=0; i<il_uzytkownikow;i++)
                 {
                     if(j==i) continue;
@@ -165,4 +165,33 @@ void delete_array(string** tab, int il_uzytkownikow)
 {
      for(auto j=0;j<il_uzytkownikow;j++) delete [] tab[j];
         delete [] tab;
+}
+string wybor_bazy()
+{
+    string plik_conf = "input.txt", dane;
+    int nr_bazy;
+    cout<<"=========Wybierz BAZE===========\n";
+    map <int,string> m;
+    ifstream conf (plik_conf);
+    if (conf)
+    {
+        int i = 1;
+        while(!conf.eof())
+        {
+            getline(conf,dane);
+            cout<<i<<"-"<<dane<<endl;
+            m.insert(pair<int, string>(i,dane));
+            i++;
+        }
+    conf.close();
+    cin>>nr_bazy;
+    auto it = m.find(nr_bazy);
+    string end = it->second;
+    cout<<end<<endl;
+    return end;
+    }
+    else
+    {
+        return "Error";
+    }
 }
