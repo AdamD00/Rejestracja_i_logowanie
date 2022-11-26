@@ -9,7 +9,7 @@
 using namespace std;
 class Klient
 {
-    private:
+    protected:
         string login, haslo,imie,nazwisko;
 
     public:
@@ -18,10 +18,11 @@ class Klient
         void wyswietl();
         bool usun_konto(string** tab, int il_uzytkownikow, string nazwa_pliku);
     };
-class Admin:Klient
+class Admin: public Klient
 {
     public:
         void znajdz_uzytkownika(string** tab, int il_uzytkownikow);
+        void wyswietl_wszystkich(string** tab, int il_uzytkownikow);
         void usun_konto(string** tab, int il_uzytkownikow);
         void stworz_konto(string** tab, int il_uzytkownikow);
 

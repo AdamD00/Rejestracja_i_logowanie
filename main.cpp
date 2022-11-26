@@ -28,7 +28,7 @@ int main()
                 cin>>wybor;
                 if(wybor!='X')
                 {
-                    if(wybor!='R')system("cls");
+                    if(wybor!='R' && wybor != 'Z')system("cls");
                     if(wybor=='R')
                     {
                         Klient aktualny;
@@ -50,7 +50,7 @@ int main()
                     cin>>wybor;
                     if(wybor!='X')
                     {
-                        if(wybor!= 'L' && wybor!='R')system("cls");
+                        if(wybor!= 'L' && wybor!='R' && wybor != 'Z')system("cls");
                         if(wybor=='R')
                         {
                             Klient aktualny;
@@ -58,7 +58,7 @@ int main()
                             delete_array(tablica,ilosc);
                             ilosc =sprawdzenie_ilosc_uzyt(plik_wczytujacy);
                         }
-                        else
+                        else if(wybor == 'L')
                         {
                             Klient aktualny;
                             if(aktualny.logowanie(tablica,ilosc))
@@ -88,6 +88,20 @@ int main()
                             }
                             delete_array(tablica,ilosc);
                         }
+                        else if(wybor == 'Z')
+                        {
+                            int iloscA =sprawdzenie_ilosc_uzyt("admin.txt");
+                            string** tablicaA=wczytanie_bazy("admin.txt",iloscA);
+                            cout<<"BAZA DANYCH 2000 - Root Mode"<<endl;
+                            Admin a;
+                           if(a.logowanie(tablicaA,iloscA))
+                           {
+                               cout<<"KONTO ADMINA\n"<<endl;
+                               cin.sync();
+                               cin.get();
+                           }
+                        }
+                        else  delete_array(tablica,ilosc);
                     }
 
                 }while(wybor!= 'X');
