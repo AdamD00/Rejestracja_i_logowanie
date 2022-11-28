@@ -92,14 +92,43 @@ int main()
                         {
                             int iloscA =sprawdzenie_ilosc_uzyt("admin.txt");
                             string** tablicaA=wczytanie_bazy("admin.txt",iloscA);
-                            cout<<"BAZA DANYCH 2000 - Root Mode"<<endl;
-                            Admin a;
-                           if(a.logowanie(tablicaA,iloscA))
+
+                            Admin admin;
+                           if(admin.logowanie(tablicaA,iloscA))
                            {
-                               cout<<"KONTO ADMINA\n"<<endl;
-                               cin.sync();
-                               cin.get();
+                               do
+                               {
+
+
+                                   cout<<"BAZA DANYCH 2000 - Root Mode"<<endl;
+                                   cout<<"Stworz konto (S) - nie dziala"<<endl;
+
+                                   if(ilosc>0)
+                                   {
+                                       cout<<"Usun konto (U) - nie dziala"<<endl
+                                       <<"Wyswietl wszystkich (W)"<<endl
+                                       <<"Znajdz konto(Z) - nie dziala"<<endl
+                                        <<"Wyjscie (X)\t"<<endl;
+                                        cin>>wybor;
+                                        switch (wybor)
+                                        {
+                                            case 'W':
+                                               admin.wyswietl_wszystkich(tablica,ilosc);
+                                                break;
+
+                                            default:
+                                                cout<<"Wyjscie"<<endl;
+                                                break;
+                                        }
+                                   }
+                                   else
+                                   {
+                                      cout<<"Wyjscie (X)\t"<<endl;
+                                      cin>>wybor;
+                                   }
+                               }while(wybor!= 'X');
                            }
+                           delete_array(tablicaA,iloscA);
                         }
                         else  delete_array(tablica,ilosc);
                     }

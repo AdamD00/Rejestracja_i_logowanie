@@ -195,3 +195,12 @@ string wybor_bazy()
         return "Error";
     }
 }
+
+void Admin::wyswietl_wszystkich(string** tab, int il_uzytkownikow)
+{
+    for(int i=0;i<il_uzytkownikow;i++)
+    {
+        cout<<"Login: "<<tab[i][0]<<" Haslo: "<<tab[i][1]<<" Imie: "<<tab[i][2]<<"  Nazwisko: "<<tab[i][3]<<endl;
+    }
+
+}
