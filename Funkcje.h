@@ -6,6 +6,7 @@
 #include <fstream>
 #include <stdio.h>
 #include <map>
+#include <vector>
 using namespace std;
 class Klient
 {

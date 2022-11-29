@@ -107,7 +107,7 @@ int main()
                                    {
                                        cout<<"Usun konto (U) - nie dziala"<<endl
                                        <<"Wyswietl wszystkich (W)"<<endl
-                                       <<"Znajdz konto(Z) - nie dziala"<<endl
+                                       <<"Znajdz konto(Z)"<<endl
                                         <<"Wyjscie (X)\t"<<endl;
                                         cin>>wybor;
                                         switch (wybor)
@@ -115,7 +115,9 @@ int main()
                                             case 'W':
                                                admin.wyswietl_wszystkich(tablica,ilosc);
                                                 break;
-
+                                            case 'Z':
+                                                admin.znajdz_uzytkownika(tablica,ilosc);
+                                                break;
                                             default:
                                                 cout<<"Wyjscie"<<endl;
                                                 break;
