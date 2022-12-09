@@ -108,6 +108,135 @@ bool Klient::usun_konto(string** tab, int il_uzytkownikow, string nazwa_pliku)
     }
     return udane;
 }
+void Admin::wyswietl_wszystkich(Admin a)
+{
+    string plik_wczytujacy;
+        plik_wczytujacy = wybor_bazy();
+        if(plik_wczytujacy == "Error")
+        {
+            cout<<"Nie mozliwe otworzenie spisu baz\n";
+        }
+        else
+        {
+
+
+                system("cls");
+                cout<<"=======================Sprawdzanie ilosci uzytkownikow=============================="<<endl;
+                int ilosc =sprawdzenie_ilosc_uzyt(plik_wczytujacy);
+                cout<<"=======================Wczytanie danych z pliku do tablicy=============================="<<endl;
+                string** tablica=wczytanie_bazy(plik_wczytujacy,ilosc);
+                tablica=wczytanie_bazy(plik_wczytujacy,ilosc);
+                a.wyswietl_wszystkich(tablica,ilosc);
+                delete_array(tablica,ilosc);
+
+
+     }
+
+}
+void Admin::wyswietl_wszystkich(string** tab, int il_uzytkownikow)
+{
+    for(int i=0;i<il_uzytkownikow;i++)
+    {
+        cout<<"Login: "<<tab[i][0]<<" Haslo: "<<tab[i][1]<<" Imie: "<<tab[i][2]<<"  Nazwisko: "<<tab[i][3]<<endl;
+    }
+
+}
+void Admin::znajdz_uzytkownika(string** tab, int il_uzytkownikow)
+{
+    char szukaj;
+    string szukane;
+    vector <int> znalezieni;
+    cout<<"Po czym szukac uzytkownika"<<endl
+    <<"(L)ogin, (I)mie, (N)azwisko: ";
+    cin>>szukaj;
+    bool znaleziony;
+    switch (szukaj)
+    {
+        case 'L':
+
+            cout<<"Wpisz szukany login: ";
+            cin>>szukane;
+           for(int i=0;i<il_uzytkownikow;i++)
+            {
+                if(tab[i][0]==szukane)
+                {
+                    cout<<"Login: "<<tab[i][0]<<" Haslo: "<<tab[i][1]<<" Imie: "<<tab[i][2]<<"  Nazwisko: "<<tab[i][3]<<endl;
+                    znaleziony = true;
+                }
+            }
+            break;
+        case 'I':
+            cout<<"Wpisz szukane imie: ";
+            cin>>szukane;
+             for(int i=0;i<il_uzytkownikow;i++)
+            {
+                if(tab[i][2]==szukane)
+                {
+                    znalezieni.push_back(i);
+                    znaleziony = true;
+                }
+            }
+            break;
+        case 'N':
+        cout<<"Wpisz szukane nazwisko: ";
+            cin>>szukane;
+             for(int i=0;i<il_uzytkownikow;i++)
+            {
+                if(tab[i][3]==szukane)
+                {
+                    znalezieni.push_back(i);
+                    znaleziony = true;
+                }
+            }
+        break;
+    }
+    if(znaleziony)
+    {
+        int ilosc = znalezieni.size();
+        if(ilosc>1)
+        {
+            cout<<"Znalazlem "<<ilosc<<" uzytkownikow"<<endl;
+            for(int i = 0; i<ilosc; i++)
+            {
+                cout<<"Login: "<<tab[znalezieni.back()][0]<<" Haslo: "<<tab[znalezieni.back()][1]<<" Imie: "<<tab[znalezieni.back()][2]<<"  Nazwisko: "<<tab[znalezieni.back()][3]<<endl;
+                znalezieni.pop_back();
+            }
+        }
+        else if(ilosc == 1)
+        {
+            cout<<"Login: "<<tab[znalezieni.back()][0]<<" Haslo: "<<tab[znalezieni.back()][1]<<" Imie: "<<tab[znalezieni.back()][2]<<"  Nazwisko: "<<tab[znalezieni.back()][3]<<endl;
+            znalezieni.pop_back();
+        }
+    }
+    else cout<<"Brak znalezionych"<<endl;
+
+    znalezieni.~vector();
+}
+ void Admin::stworz_konto()
+ {
+        string plik_wczytujacy;
+        plik_wczytujacy = wybor_bazy();
+        if(plik_wczytujacy == "Error")
+        {
+            cout<<"Nie mozliwe otworzenie spisu baz\n";
+        }
+        else
+        {
+
+
+                system("cls");
+                cout<<"=======================Sprawdzanie ilosci uzytkownikow=============================="<<endl;
+                int ilosc =sprawdzenie_ilosc_uzyt(plik_wczytujacy);
+                cout<<"=======================Wczytanie danych z pliku do tablicy=============================="<<endl;
+                string** tablica=wczytanie_bazy(plik_wczytujacy,ilosc);
+                tablica=wczytanie_bazy(plik_wczytujacy,ilosc);
+                Klient tymczasowy;
+                tymczasowy.rejestracja(tablica,ilosc,plik_wczytujacy);
+                delete_array(tablica,ilosc);
+
+
+     }
+ }
 int sprawdzenie_ilosc_uzyt(string nazwa_pliku)
 {
     fstream plik;
@@ -196,82 +325,3 @@ string wybor_bazy()
     }
 }
 
-void Admin::wyswietl_wszystkich(string** tab, int il_uzytkownikow)
-{
-    for(int i=0;i<il_uzytkownikow;i++)
-    {
-        cout<<"Login: "<<tab[i][0]<<" Haslo: "<<tab[i][1]<<" Imie: "<<tab[i][2]<<"  Nazwisko: "<<tab[i][3]<<endl;
-    }
-
-}
-void Admin::znajdz_uzytkownika(string** tab, int il_uzytkownikow)
-{
-    char szukaj;
-    string szukane;
-    vector <int> znalezieni;
-    cout<<"Po czym szukac uzytkownika"<<endl
-    <<"(L)ogin, (I)mie, (N)azwisko: ";
-    cin>>szukaj;
-    bool znaleziony;
-    switch (szukaj)
-    {
-        case 'L':
-
-            cout<<"Wpisz szukany login: ";
-            cin>>szukane;
-           for(int i=0;i<il_uzytkownikow;i++)
-            {
-                if(tab[i][0]==szukane)
-                {
-                    cout<<"Login: "<<tab[i][0]<<" Haslo: "<<tab[i][1]<<" Imie: "<<tab[i][2]<<"  Nazwisko: "<<tab[i][3]<<endl;
-                    znaleziony = true;
-                }
-            }
-            break;
-        case 'I':
-            cout<<"Wpisz szukane imie: ";
-            cin>>szukane;
-             for(int i=0;i<il_uzytkownikow;i++)
-            {
-                if(tab[i][2]==szukane)
-                {
-                    znalezieni.push_back(i);
-                    znaleziony = true;
-                }
-            }
-            break;
-        case 'N':
-        cout<<"Wpisz szukane nazwisko: ";
-            cin>>szukane;
-             for(int i=0;i<il_uzytkownikow;i++)
-            {
-                if(tab[i][3]==szukane)
-                {
-                    znalezieni.push_back(i);
-                    znaleziony = true;
-                }
-            }
-        break;
-    }
-    if(znaleziony)
-    {
-        int ilosc = znalezieni.size();
-        if(ilosc>1)
-        {
-            cout<<"Znalazlem "<<ilosc<<" uzytkownikow"<<endl;
-            for(int i = 0; i<ilosc; i++)
-            {
-                cout<<"Login: "<<tab[znalezieni.back()][0]<<" Haslo: "<<tab[znalezieni.back()][1]<<" Imie: "<<tab[znalezieni.back()][2]<<"  Nazwisko: "<<tab[znalezieni.back()][3]<<endl;
-                znalezieni.pop_back();
-            }
-        }
-        else if(ilosc == 1)
-        {
-            cout<<"Login: "<<tab[znalezieni.back()][0]<<" Haslo: "<<tab[znalezieni.back()][1]<<" Imie: "<<tab[znalezieni.back()][2]<<"  Nazwisko: "<<tab[znalezieni.back()][3]<<endl;
-            znalezieni.pop_back();
-        }
-    }
-    else cout<<"Brak znalezionych"<<endl;
-
-    znalezieni.~vector();
-}

@@ -101,7 +101,7 @@ int main()
 
 
                                    cout<<"BAZA DANYCH 2000 - Root Mode"<<endl;
-                                   cout<<"Stworz konto (S) - nie dziala"<<endl;
+                                   cout<<"Stworz konto (S)"<<endl;
 
                                    if(ilosc>0)
                                    {
@@ -113,7 +113,7 @@ int main()
                                         switch (wybor)
                                         {
                                             case 'W':
-                                               admin.wyswietl_wszystkich(tablica,ilosc);
+                                               admin.wyswietl_wszystkich(admin);
                                                 break;
                                             case 'Z':
                                                 admin.znajdz_uzytkownika(tablica,ilosc);
@@ -128,6 +128,7 @@ int main()
                                       cout<<"Wyjscie (X)\t"<<endl;
                                       cin>>wybor;
                                    }
+                                   if (wybor == 'S') admin.stworz_konto();
                                }while(wybor!= 'X');
                            }
                            delete_array(tablicaA,iloscA);
