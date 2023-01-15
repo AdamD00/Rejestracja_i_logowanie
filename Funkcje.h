@@ -14,6 +14,8 @@ class Klient
         string login, haslo,imie,nazwisko;
 
     public:
+        Klient();
+        Klient(string l, string h, string i, string n);
         bool logowanie(string** tab, int il_uzytkownik);
         void rejestracja(string** tab, int il_uzytkownikow, string nazwa_pliku);
         void wyswietl();

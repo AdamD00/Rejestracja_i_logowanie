@@ -1,5 +1,16 @@
 #include "Funkcje.h"
 
+Klient::Klient()
+{
+    cout<<"Tworzenie obiektu nieprzeciazonego"<<endl;
+}
+
+Klient::Klient(string l, string h,string i, string n) : login(l), haslo(h), imie(i), nazwisko(n)
+{
+    cout<<"Tworzenie obiektu przeciazonego"<<endl;
+}
+
+
 bool Klient::logowanie(string** tab, int il_uzytkownikow)
 {
     bool is_login=false;
@@ -110,7 +121,7 @@ bool Klient::usun_konto(string** tab, int il_uzytkownikow, string nazwa_pliku)
 }
 void Admin::wyswietl_wszystkich(Admin a)
 {
-    string plik_wczytujacy;
+        string plik_wczytujacy;
         plik_wczytujacy = wybor_bazy();
         if(plik_wczytujacy == "Error")
         {
@@ -193,12 +204,14 @@ void Admin::znajdz_uzytkownika(string** tab, int il_uzytkownikow)
     if(znaleziony)
     {
         int ilosc = znalezieni.size();
+        int tymtab = new int[][];
         if(ilosc>1)
         {
             cout<<"Znalazlem "<<ilosc<<" uzytkownikow"<<endl;
             for(int i = 0; i<ilosc; i++)
             {
                 cout<<"Login: "<<tab[znalezieni.back()][0]<<" Haslo: "<<tab[znalezieni.back()][1]<<" Imie: "<<tab[znalezieni.back()][2]<<"  Nazwisko: "<<tab[znalezieni.back()][3]<<endl;
+                tymtab[i][0];
                 znalezieni.pop_back();
             }
         }
@@ -206,6 +219,7 @@ void Admin::znajdz_uzytkownika(string** tab, int il_uzytkownikow)
         {
             cout<<"Login: "<<tab[znalezieni.back()][0]<<" Haslo: "<<tab[znalezieni.back()][1]<<" Imie: "<<tab[znalezieni.back()][2]<<"  Nazwisko: "<<tab[znalezieni.back()][3]<<endl;
             znalezieni.pop_back();
+
         }
     }
     else cout<<"Brak znalezionych"<<endl;
