@@ -4,7 +4,7 @@ char wybor;
 int main()
 {
     string plik_wczytujacy, dane;
-   // plik_wczytujacy = wybor_bazy();
+    plik_wczytujacy = wybor_bazy();
     if(plik_wczytujacy == "Error" || plik_wczytujacy.empty())
     {
         cout<<"Nie mozliwe otworzenie spisu baz\n";
