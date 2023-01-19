@@ -4,8 +4,8 @@ char wybor;
 int main()
 {
     string plik_wczytujacy, dane;
-    plik_wczytujacy = wybor_bazy();
-    if(plik_wczytujacy == "Error")
+   // plik_wczytujacy = wybor_bazy();
+    if(plik_wczytujacy == "Error" || plik_wczytujacy.empty())
     {
         cout<<"Nie mozliwe otworzenie spisu baz\n";
     }
@@ -99,24 +99,24 @@ int main()
                                do
                                {
 
-
+                                    system("cls");
                                    cout<<"BAZA DANYCH 2000 - Root Mode"<<endl;
+                                   cout<<"Operacje na Bazie "<<plik_wczytujacy<<" zamiana bazy(C)"<<endl;
                                    cout<<"Stworz konto (S)"<<endl;
 
                                    if(ilosc>0)
                                    {
-                                       cout<<"Usun konto (U) - nie dziala"<<endl
-                                       <<"Wyswietl wszystkich (W)"<<endl
+                                       cout<<"Wyswietl wszystkich (W)"<<endl
                                        <<"Znajdz konto(Z)"<<endl
                                         <<"Wyjscie (X)\t"<<endl;
                                         cin>>wybor;
                                         switch (wybor)
                                         {
                                             case 'W':
-                                               admin.wyswietl_wszystkich(admin);
+                                               admin.wyswietl_wszystkich(tablica,ilosc);
                                                 break;
                                             case 'Z':
-                                                admin.znajdz_uzytkownika(tablica,ilosc);
+                                                admin.znajdz_uzytkownika(tablica,ilosc,plik_wczytujacy);
                                                 break;
                                             default:
                                                 cout<<"Wyjscie"<<endl;
@@ -129,6 +129,7 @@ int main()
                                       cin>>wybor;
                                    }
                                    if (wybor == 'S') admin.stworz_konto();
+
                                }while(wybor!= 'X');
                            }
                            delete_array(tablicaA,iloscA);

@@ -119,48 +119,27 @@ bool Klient::usun_konto(string** tab, int il_uzytkownikow, string nazwa_pliku)
     }
     return udane;
 }
-void Admin::wyswietl_wszystkich(Admin a)
-{
-        string plik_wczytujacy;
-        plik_wczytujacy = wybor_bazy();
-        if(plik_wczytujacy == "Error")
-        {
-            cout<<"Nie mozliwe otworzenie spisu baz\n";
-        }
-        else
-        {
 
 
-                system("cls");
-                cout<<"=======================Sprawdzanie ilosci uzytkownikow=============================="<<endl;
-                int ilosc =sprawdzenie_ilosc_uzyt(plik_wczytujacy);
-                cout<<"=======================Wczytanie danych z pliku do tablicy=============================="<<endl;
-                string** tablica=wczytanie_bazy(plik_wczytujacy,ilosc);
-                tablica=wczytanie_bazy(plik_wczytujacy,ilosc);
-                a.wyswietl_wszystkich(tablica,ilosc);
-                delete_array(tablica,ilosc);
-
-
-     }
-
-}
 void Admin::wyswietl_wszystkich(string** tab, int il_uzytkownikow)
 {
+    system("cls");
     for(int i=0;i<il_uzytkownikow;i++)
     {
         cout<<"Login: "<<tab[i][0]<<" Haslo: "<<tab[i][1]<<" Imie: "<<tab[i][2]<<"  Nazwisko: "<<tab[i][3]<<endl;
     }
-
+    cin.sync();
+    cin.get();
 }
-void Admin::znajdz_uzytkownika(string** tab, int il_uzytkownikow)
+void Admin::znajdz_uzytkownika(string** tab, int il_uzytkownikow,string nazwa_pliku)
 {
-    char szukaj;
+    char szukaj, wybor;
     string szukane;
     vector <int> znalezieni;
     cout<<"Po czym szukac uzytkownika"<<endl
     <<"(L)ogin, (I)mie, (N)azwisko: ";
     cin>>szukaj;
-    bool znaleziony;
+    bool znaleziony, check;
     switch (szukaj)
     {
         case 'L':
@@ -171,7 +150,7 @@ void Admin::znajdz_uzytkownika(string** tab, int il_uzytkownikow)
             {
                 if(tab[i][0]==szukane)
                 {
-                    cout<<"Login: "<<tab[i][0]<<" Haslo: "<<tab[i][1]<<" Imie: "<<tab[i][2]<<"  Nazwisko: "<<tab[i][3]<<endl;
+                   znalezieni.push_back(i);
                     znaleziony = true;
                 }
             }
@@ -204,25 +183,48 @@ void Admin::znajdz_uzytkownika(string** tab, int il_uzytkownikow)
     if(znaleziony)
     {
         int ilosc = znalezieni.size();
-        int tymtab = new int[][];
+
         if(ilosc>1)
         {
             cout<<"Znalazlem "<<ilosc<<" uzytkownikow"<<endl;
             for(int i = 0; i<ilosc; i++)
             {
-                cout<<"Login: "<<tab[znalezieni.back()][0]<<" Haslo: "<<tab[znalezieni.back()][1]<<" Imie: "<<tab[znalezieni.back()][2]<<"  Nazwisko: "<<tab[znalezieni.back()][3]<<endl;
-                tymtab[i][0];
-                znalezieni.pop_back();
+                cout<<"Login: "<<tab[znalezieni.at(i)][0]<<" Haslo: "<<tab[znalezieni.at(i)][1]<<" Imie: "<<tab[znalezieni.at(i)][2]<<"  Nazwisko: "<<tab[znalezieni.at(i)][3]<<endl;
             }
         }
         else if(ilosc == 1)
         {
-            cout<<"Login: "<<tab[znalezieni.back()][0]<<" Haslo: "<<tab[znalezieni.back()][1]<<" Imie: "<<tab[znalezieni.back()][2]<<"  Nazwisko: "<<tab[znalezieni.back()][3]<<endl;
-            znalezieni.pop_back();
+            cout<<"Login: "<<tab[znalezieni[0]][0]<<" Haslo: "<<tab[znalezieni[0]][1]<<" Imie: "<<tab[znalezieni[0]][2]<<"  Nazwisko: "<<tab[znalezieni[0]][3]<<endl;
+            cout<<"Czy chcesz edytowac uzytkownika "<<tab[znalezieni.back()][0]<<"?"<<endl;
+            cin.sync();
+            cin>>wybor;
+            if(wybor == 'Y')
+            {
+                Klient aktualny(tab[znalezieni[0]][0],tab[znalezieni[0]][1],tab[znalezieni[0]][2],tab[znalezieni[0]][3]);
+                do
+                {
+
+                    system("cls");
+                    cout<<"Usun konto (U)\n Wyjscie (X)\n";
+                    cin.sync();
+                    cin>>wybor;
+                    switch(wybor)
+                    {
+                    case 'U':
+                       check= aktualny.usun_konto(tab,il_uzytkownikow,nazwa_pliku);
+                        break;
+                    default:
+                        cout<<"Wychodze"<<endl;
+                        break;
+                    }
+                }while(wybor!= 'X' && check == false);
+
+            }
 
         }
     }
     else cout<<"Brak znalezionych"<<endl;
+
 
     znalezieni.~vector();
 }
@@ -338,4 +340,11 @@ string wybor_bazy()
         return "Error";
     }
 }
+/*struct BAZA
+{
+    string plik_wczytujace=wybor_bazy();
+    int ilosc=sprawdzenie_ilosc_uzyt(plik_wczytujacy);;
+    string** tablica=wczytanie_bazy(plik_wczytujacy,ilosc);
 
+};
+*/

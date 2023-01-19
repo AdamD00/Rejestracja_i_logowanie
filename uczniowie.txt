@@ -1,1 +1,1 @@
-Adam123;A123;Adam;Dubiel;Mateusz;M123;Mateusz;Kowalski;
+Adam123;A123;Adam;Dubiel;
