@@ -2,20 +2,22 @@
 
 Klient::Klient()
 {
-    cout<<"Tworzenie obiektu nieprzeciazonego"<<endl;
 }
 
 Klient::Klient(string l, string h,string i, string n) : login(l), haslo(h), imie(i), nazwisko(n)
 {
-    cout<<"Tworzenie obiektu przeciazonego"<<endl;
 }
-
+string Klient::getImie()
+{
+    return this->imie;
+}
 
 bool Klient::logowanie(string** tab, int il_uzytkownikow)
 {
     bool is_login=false;
     int i;
     string login, haslo;
+    system("cls");
     cout<<"LOGIN:";
     cin>>login;
     for(i = 0; i<il_uzytkownikow; i++)
@@ -27,6 +29,7 @@ bool Klient::logowanie(string** tab, int il_uzytkownikow)
 
     if(!is_login)
     {
+        system("cls");
         cout<<"BRAK LOGINU\n";
         cin.sync();
         cin.get();
@@ -36,6 +39,7 @@ bool Klient::logowanie(string** tab, int il_uzytkownikow)
     cin>>haslo;
     if(haslo == tab[i][1] )
     {
+        system("cls");
         cout<<"Witaj "<<tab[i][2]<<endl;
         this->login = tab[i][0];
         this->haslo = tab[i][1];
@@ -45,6 +49,7 @@ bool Klient::logowanie(string** tab, int il_uzytkownikow)
     }
     else
     {
+        system("cls");
         cout<<"ZLE HASLO\n";
         return false;
     }
@@ -56,6 +61,7 @@ void Klient::rejestracja(string** tab, int il_uzytkownikow, string nazwa_pliku)
     do
     {
         powtorzenie = false;
+        system("cls");
         cout<<"Wpisz login:";
         cin>>login;
         for(int i = 0; i<il_uzytkownikow; i++)
@@ -64,13 +70,18 @@ void Klient::rejestracja(string** tab, int il_uzytkownikow, string nazwa_pliku)
             powtorzenie = true;
             break;
         }
+        system("cls");
         if(powtorzenie) cout<<"Login zajety\n";
     }while(powtorzenie);
+    system("cls");
     cout<<"Wpisz haslo:";
     cin>>haslo;
+
     cout<<"Wpisz imie:";
+
     cin>>imie;
     cout<<"Wpisz nazwisko:";
+
     cin>>nazwisko;
     fstream plik;
     if(il_uzytkownikow>0)
@@ -85,18 +96,19 @@ void Klient::rejestracja(string** tab, int il_uzytkownikow, string nazwa_pliku)
 }
 void Klient::wyswietl()
 {
+    system("cls");
     cout<<"Uzytkownik:"<<this->imie<<" "<<this->nazwisko<<" \nLogin:"<<this->login<<endl;
     cin.sync();
     cin.get();
 }
 bool Klient::usun_konto(string** tab, int il_uzytkownikow, string nazwa_pliku)
 {
+    system("cls");
     bool udane=false;
     cout<<"Zeby usunac konto wpisz \"Usun "<<this->login<<"\""<<endl;
     string potwierdzenie;
     cin.sync();
     getline(cin, potwierdzenie);
-    cout<<potwierdzenie<<endl;
     if(potwierdzenie == "Usun "+this->login)
     {
         for(int i=0; i<il_uzytkownikow;i++)
@@ -106,7 +118,7 @@ bool Klient::usun_konto(string** tab, int il_uzytkownikow, string nazwa_pliku)
                 udane = true;
                fstream plik;
                plik.open(nazwa_pliku,ios::out);
-               for(int j=0; i<il_uzytkownikow;i++)
+               for(int j=0; j<il_uzytkownikow;j++)
                 {
                     if(j==i) continue;
                     else plik<<tab[j][0]<<";"<<tab[j][1]<<";"<<tab[j][2]<<";"<<tab[j][3]<<";";
@@ -119,8 +131,31 @@ bool Klient::usun_konto(string** tab, int il_uzytkownikow, string nazwa_pliku)
     }
     return udane;
 }
+void Klient::zmiana_danych(string** tab, int il_uzytkownikow, string nazwa_pliku)
+{
+    char wybor;
+    system("cls");
+    cout<<"Co chcialbys zmienic?"<<endl
+    <<"(L)ogin, (I)mie, (N)azwisko, (H)aslo: ";
+    cin>>wybor;
+    system("cls");
+    switch (wybor)
+    {
+        case 'L':
 
 
+            break;
+        case 'I':
+
+
+            break;
+        case 'N':
+
+            break;
+        case 'H':
+            break;
+    }
+}
 void Admin::wyswietl_wszystkich(string** tab, int il_uzytkownikow)
 {
     system("cls");
@@ -134,12 +169,16 @@ void Admin::wyswietl_wszystkich(string** tab, int il_uzytkownikow)
 void Admin::znajdz_uzytkownika(string** tab, int il_uzytkownikow,string nazwa_pliku)
 {
     char szukaj, wybor;
+    bool znaleziony, check;
     string szukane;
     vector <int> znalezieni;
+
+    system("cls");
     cout<<"Po czym szukac uzytkownika"<<endl
     <<"(L)ogin, (I)mie, (N)azwisko: ";
     cin>>szukaj;
-    bool znaleziony, check;
+    system("cls");
+
     switch (szukaj)
     {
         case 'L':
@@ -232,7 +271,7 @@ void Admin::znajdz_uzytkownika(string** tab, int il_uzytkownikow,string nazwa_pl
  {
         string plik_wczytujacy;
         plik_wczytujacy = wybor_bazy();
-        if(plik_wczytujacy == "Error")
+        if(plik_wczytujacy == "Error" or plik_wczytujacy.empty())
         {
             cout<<"Nie mozliwe otworzenie spisu baz\n";
         }
@@ -340,11 +379,49 @@ string wybor_bazy()
         return "Error";
     }
 }
-/*struct BAZA
+BAZA::BAZA()
 {
-    string plik_wczytujace=wybor_bazy();
-    int ilosc=sprawdzenie_ilosc_uzyt(plik_wczytujacy);;
-    string** tablica=wczytanie_bazy(plik_wczytujacy,ilosc);
 
-};
-*/
+
+        plik_wczytujace = wybor_bazy();
+        if(plik_wczytujace == "Error" || plik_wczytujace.empty())
+        {
+            plik_wczytujace = "Error";
+        }
+        else
+        {
+            ilosc=sprawdzenie_ilosc_uzyt(plik_wczytujace);
+            tablica=wczytanie_bazy(plik_wczytujace,ilosc);
+        }
+
+
+
+}
+BAZA::~BAZA()
+{
+
+        delete_array(tablica,ilosc);
+
+}
+void BAZA::ArrayUpdate()
+{
+
+    this->ilosc=sprawdzenie_ilosc_uzyt(this->plik_wczytujace);
+    this->tablica=wczytanie_bazy(this->plik_wczytujace,this->ilosc);
+
+}
+void BAZA::DataBaseUpdate()
+{
+    this->plik_wczytujace = wybor_bazy();
+        if(this->plik_wczytujace == "Error" || this->plik_wczytujace.empty())
+        {
+           this-> plik_wczytujace = "Error";
+        }
+        else
+        {
+            this->ilosc=sprawdzenie_ilosc_uzyt(this->plik_wczytujace);
+            this->tablica=wczytanie_bazy(this->plik_wczytujace,this->ilosc);
+        }
+        cin.sync();
+        cin.get();
+}

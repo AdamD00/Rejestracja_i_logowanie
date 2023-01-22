@@ -1,6 +1,7 @@
 #ifndef Funkcje_h
 #define Funkcje_h
 #include <string>
+#include <stdlib.h>
 #include <iostream>
 #include <windows.h>
 #include <fstream>
@@ -16,10 +17,13 @@ class Klient
     public:
         Klient();
         Klient(string l, string h, string i, string n);
+
         bool logowanie(string** tab, int il_uzytkownik);
         void rejestracja(string** tab, int il_uzytkownikow, string nazwa_pliku);
         void wyswietl();
+        void zmiana_danych(string** tab, int il_uzytkownikow, string nazwa_pliku);
         bool usun_konto(string** tab, int il_uzytkownikow, string nazwa_pliku);
+        string getImie();
     };
 class Admin: public Klient
 {
@@ -31,7 +35,19 @@ class Admin: public Klient
 
 
 };
+struct BAZA
+{
+    string plik_wczytujace;
+    int ilosc;
+    string** tablica;
 
+    void ArrayUpdate();
+    void DataBaseUpdate();
+
+    BAZA();
+    ~BAZA();
+
+};
 string** wczytanie_bazy(string nazwa_pliku,int k);
 void kopia_bazy(string nazwa_pliku);
 int sprawdzenie_ilosc_uzyt(string nazwa_pliku);

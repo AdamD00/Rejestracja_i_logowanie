@@ -3,25 +3,21 @@
 char wybor;
 int main()
 {
-    string plik_wczytujacy, dane;
-    plik_wczytujacy = wybor_bazy();
-    if(plik_wczytujacy == "Error" || plik_wczytujacy.empty())
+    string dane;
+    BAZA* UsedDataBase = new BAZA();
+    if(UsedDataBase->plik_wczytujace=="Error")
     {
-        cout<<"Nie mozliwe otworzenie spisu baz\n";
+        return EXIT_FAILURE;
     }
     else
     {
         do
         {
+            UsedDataBase->ArrayUpdate();
 
             system("cls");
-            cout<<"=======================Sprawdzanie ilosci uzytkownikow=============================="<<endl;
-            int ilosc =sprawdzenie_ilosc_uzyt(plik_wczytujacy);
-             cout<<"=======================Wczytanie danych z pliku do tablicy=============================="<<endl;
-            string** tablica=wczytanie_bazy(plik_wczytujacy,ilosc);
-            if (ilosc == 0)
+            if (UsedDataBase->ilosc == 0)
             {
-                tablica=wczytanie_bazy(plik_wczytujacy,ilosc);
                 cout<<"BAZA DANYCH 2000"<<endl
                 <<"REJESTROWANIE (R)"<<endl
                 <<"WYJSCIE (X)"<<endl;
@@ -32,16 +28,16 @@ int main()
                     if(wybor=='R')
                     {
                         Klient aktualny;
-                        aktualny.rejestracja(tablica,ilosc,plik_wczytujacy);
+                        aktualny.rejestracja(UsedDataBase->tablica,UsedDataBase->ilosc,UsedDataBase->plik_wczytujace);
+
                     }
                 }
-                 delete_array(tablica,ilosc);
             }
-            else if(ilosc>0)
+            else if(UsedDataBase->ilosc>0)
             {
                 do
                 {
-                    tablica=wczytanie_bazy(plik_wczytujacy,ilosc);
+                    UsedDataBase->ArrayUpdate();
                     system("cls");
                     cout<<"BAZA DANYCH 2000"<<endl
                     <<"LOGOWANIE (L)"<<endl
@@ -54,21 +50,21 @@ int main()
                         if(wybor=='R')
                         {
                             Klient aktualny;
-                            aktualny.rejestracja(tablica,ilosc,plik_wczytujacy);
-                            delete_array(tablica,ilosc);
-                            ilosc =sprawdzenie_ilosc_uzyt(plik_wczytujacy);
+                            aktualny.rejestracja(UsedDataBase->tablica,UsedDataBase->ilosc,UsedDataBase->plik_wczytujace);
                         }
                         else if(wybor == 'L')
                         {
                             Klient aktualny;
-                            if(aktualny.logowanie(tablica,ilosc))
+                            if(aktualny.logowanie(UsedDataBase->tablica,UsedDataBase->ilosc))
                             {
                                 bool check;
                                 do
                                 {
                                     system("cls");
                                     cout<<"BAZA DANYCH 2000"<<endl;
+                                    cout<<"User: "<<aktualny.getImie()<<endl;
                                     cout<<"Wyswietlanie (W)"<<endl
+                                    <<"Zmiana danych (Z)"<<endl
                                     <<"Usun konto (U)"<<endl
                                     <<"Wyjscie (X)\t"<<endl;
                                     cin>>wybor;
@@ -78,7 +74,10 @@ int main()
                                             aktualny.wyswietl();
                                             break;
                                         case 'U':
-                                           check=aktualny.usun_konto(tablica,ilosc,plik_wczytujacy);
+                                           check=aktualny.usun_konto(UsedDataBase->tablica,UsedDataBase->ilosc,UsedDataBase->plik_wczytujace);
+                                            break;
+                                        case 'Z':
+                                            check=aktualny.usun_konto(UsedDataBase->tablica,UsedDataBase->ilosc,UsedDataBase->plik_wczytujace);
                                             break;
                                         default:
                                             cout<<"Wyjscie"<<endl;
@@ -86,10 +85,10 @@ int main()
                                     }
                                 }while(wybor!= 'X' && check == false);
                             }
-                            delete_array(tablica,ilosc);
                         }
                         else if(wybor == 'Z')
                         {
+
                             int iloscA =sprawdzenie_ilosc_uzyt("admin.txt");
                             string** tablicaA=wczytanie_bazy("admin.txt",iloscA);
 
@@ -101,29 +100,35 @@ int main()
 
                                     system("cls");
                                    cout<<"BAZA DANYCH 2000 - Root Mode"<<endl;
-                                   cout<<"Operacje na Bazie "<<plik_wczytujacy<<" zamiana bazy(C)"<<endl;
+                                   cout<<"Operacje na Bazie "<<UsedDataBase->plik_wczytujace<<" zamiana bazy (C)"<<endl;
                                    cout<<"Stworz konto (S)"<<endl;
 
-                                   if(ilosc>0)
+                                   if(UsedDataBase->ilosc>0)
                                    {
                                        cout<<"Wyswietl wszystkich (W)"<<endl
                                        <<"Znajdz konto(Z)"<<endl
                                         <<"Wyjscie (X)\t"<<endl;
                                         cin>>wybor;
+                                        if(wybor =='C')
+                                        {
+                                            UsedDataBase->DataBaseUpdate();
+                                        }
                                         switch (wybor)
                                         {
                                             case 'W':
-                                               admin.wyswietl_wszystkich(tablica,ilosc);
+                                               admin.wyswietl_wszystkich(UsedDataBase->tablica,UsedDataBase->ilosc);
                                                 break;
+
                                             case 'Z':
-                                                admin.znajdz_uzytkownika(tablica,ilosc,plik_wczytujacy);
+                                                admin.znajdz_uzytkownika(UsedDataBase->tablica,UsedDataBase->ilosc,UsedDataBase->plik_wczytujace);
                                                 break;
+
                                             default:
                                                 cout<<"Wyjscie"<<endl;
                                                 break;
                                         }
                                    }
-                                   else
+                                            else
                                    {
                                       cout<<"Wyjscie (X)\t"<<endl;
                                       cin>>wybor;
@@ -134,7 +139,6 @@ int main()
                            }
                            delete_array(tablicaA,iloscA);
                         }
-                        else  delete_array(tablica,ilosc);
                     }
 
                 }while(wybor!= 'X');
@@ -142,6 +146,6 @@ int main()
         }while(wybor!= 'X');
     }
 
-    return 0;
+    return EXIT_SUCCESS;
 }
 
