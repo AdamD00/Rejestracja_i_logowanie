@@ -131,9 +131,11 @@ bool Klient::usun_konto(string** tab, int il_uzytkownikow, string nazwa_pliku)
     }
     return udane;
 }
-void Klient::zmiana_danych(string** tab, int il_uzytkownikow, string nazwa_pliku)
+bool Klient::zmiana_danych(string** tab, int il_uzytkownikow, string nazwa_pliku)
 {
-    char wybor;
+    bool udanaZmiana = false, powtorzenieHasla;
+    char wybor, potwierdzenie;
+    string noweUstawienie, noweUstawienie2;
     system("cls");
     cout<<"Co chcialbys zmienic?"<<endl
     <<"(L)ogin, (I)mie, (N)azwisko, (H)aslo: ";
@@ -142,19 +144,118 @@ void Klient::zmiana_danych(string** tab, int il_uzytkownikow, string nazwa_pliku
     switch (wybor)
     {
         case 'L':
-
+             for(int i=0; i<il_uzytkownikow;i++)
+             {
+                 if(this->login==tab[i][0])
+                 {
+                     cout<<"Stary login: "<<tab[i][0]<<endl
+                     <<"Podaj nowy login:";
+                     cin>>noweUstawienie;
+                     cout<<"Nowy login to:"<<noweUstawienie<<endl;
+                     cout<<"Wpisz Y by potwierdzic:";
+                     cin>>potwierdzenie;
+                     if(potwierdzenie=='Y')
+                     {
+                        this->login = noweUstawienie;
+                        tab[i][0]=noweUstawienie;
+                        udanaZmiana = true;
+                     }
+                    else
+                        cout<<"Cofam zmiany"<<endl;
+                     break;
+                 }
+             }
 
             break;
         case 'I':
-
+            for(int i=0; i<il_uzytkownikow;i++)
+             {
+                 if(this->imie==tab[i][2])
+                 {
+                     cout<<"Stare imie: "<<tab[i][2]<<endl
+                     <<"Podaj nowe imie:";
+                     cin>>noweUstawienie;
+                     cout<<"Nowe imie to:"<<noweUstawienie<<endl;
+                     cout<<"Wpisz Y by potwierdzic: ";
+                     cin>>potwierdzenie;
+                     if(potwierdzenie=='Y'){
+                        this->imie = noweUstawienie;
+                        tab[i][2]=noweUstawienie;
+                        udanaZmiana = true;
+                     }
+                    else
+                        cout<<"Cofam zmiany"<<endl;
+                     break;
+                 }
+             }
 
             break;
         case 'N':
-
+            for(int i=0; i<il_uzytkownikow;i++)
+             {
+                 if(this->nazwisko==tab[i][3])
+                 {
+                     cout<<"Stare nazwisko to: "<<tab[i][3]<<endl
+                     <<"Podaj nowe nazwisko:";
+                     cin>>noweUstawienie;
+                     cout<<"Nowe nazwisko to: "<<noweUstawienie<<endl;
+                     cout<<"Wpisz Y by potwierdzic:";
+                     cin>>potwierdzenie;
+                     if(potwierdzenie=='Y')
+                        {
+                            this->nazwisko = noweUstawienie;
+                            tab[i][3]=noweUstawienie;
+                            udanaZmiana = true;
+                        }
+                    else
+                        cout<<"Cofam zmiany"<<endl;
+                     break;
+                 }
+             }
             break;
         case 'H':
+            for(int i=0; i<il_uzytkownikow;i++)
+             {
+                 if(this->haslo==tab[i][1])
+                 {
+
+                     cout<<"Stare haslo: "<<tab[i][1]<<endl;
+                     do
+                    {
+                         powtorzenieHasla=false;
+                         cout<<"Podaj nowe haslo: ";
+                         cin>>noweUstawienie;
+                         cout<<"Powtorz nowe haslo: ";
+                         cin>>noweUstawienie2;
+                         if(noweUstawienie2==noweUstawienie) powtorzenieHasla= true;
+                         if(powtorzenieHasla == false) cout<<"Hasla nie takie same"<<endl;
+                     }while(powtorzenieHasla == false);
+                     cout<<"Nowe haslo to:"<<noweUstawienie<<endl;
+                     cout<<"Wpisz Y by potwierdzic:";
+                     cin>>potwierdzenie;
+                     if(potwierdzenie=='Y')
+                        {
+                            this->haslo = noweUstawienie;
+                            tab[i][1]=noweUstawienie;
+                            udanaZmiana = true;
+                        }
+                    else
+                        cout<<"Cofam zmiany"<<endl;
+                     break;
+                 }
+             }
             break;
     }
+
+    if(udanaZmiana)
+    {
+        fstream plik;
+        plik.open(nazwa_pliku,ios::out);
+        for(int i=0; i<il_uzytkownikow;i++) plik<<tab[i][0]<<";"<<tab[i][1]<<";"<<tab[i][2]<<";"<<tab[i][3]<<";";
+        plik.close();
+
+    }
+    return udanaZmiana;
 }
 void Admin::wyswietl_wszystkich(string** tab, int il_uzytkownikow)
 {
@@ -169,7 +270,7 @@ void Admin::wyswietl_wszystkich(string** tab, int il_uzytkownikow)
 void Admin::znajdz_uzytkownika(string** tab, int il_uzytkownikow,string nazwa_pliku)
 {
     char szukaj, wybor;
-    bool znaleziony, check;
+    bool znaleziony, check, zmienioneDane;
     string szukane;
     vector <int> znalezieni;
 
@@ -244,7 +345,7 @@ void Admin::znajdz_uzytkownika(string** tab, int il_uzytkownikow,string nazwa_pl
                 {
 
                     system("cls");
-                    cout<<"Usun konto (U)\n Wyjscie (X)\n";
+                    cout<<"Usun konto (U)\n Zmiana danych (Z)\n Wyjscie (X)\n";
                     cin.sync();
                     cin>>wybor;
                     switch(wybor)
@@ -252,10 +353,14 @@ void Admin::znajdz_uzytkownika(string** tab, int il_uzytkownikow,string nazwa_pl
                     case 'U':
                        check= aktualny.usun_konto(tab,il_uzytkownikow,nazwa_pliku);
                         break;
+                    case 'Z':
+                        zmienioneDane=aktualny.zmiana_danych(tab,il_uzytkownikow,nazwa_pliku);
+                        break;
                     default:
                         cout<<"Wychodze"<<endl;
                         break;
                     }
+
                 }while(wybor!= 'X' && check == false);
 
             }
@@ -412,7 +517,7 @@ void BAZA::ArrayUpdate()
 }
 void BAZA::DataBaseUpdate()
 {
-    this->plik_wczytujace = wybor_bazy();
+        this->plik_wczytujace = wybor_bazy();
         if(this->plik_wczytujace == "Error" || this->plik_wczytujace.empty())
         {
            this-> plik_wczytujace = "Error";

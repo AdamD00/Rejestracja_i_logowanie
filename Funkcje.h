@@ -21,7 +21,7 @@ class Klient
         bool logowanie(string** tab, int il_uzytkownik);
         void rejestracja(string** tab, int il_uzytkownikow, string nazwa_pliku);
         void wyswietl();
-        void zmiana_danych(string** tab, int il_uzytkownikow, string nazwa_pliku);
+        bool zmiana_danych(string** tab, int il_uzytkownikow, string nazwa_pliku);
         bool usun_konto(string** tab, int il_uzytkownikow, string nazwa_pliku);
         string getImie();
     };

@@ -3,7 +3,6 @@
 char wybor;
 int main()
 {
-    string dane;
     BAZA* UsedDataBase = new BAZA();
     if(UsedDataBase->plik_wczytujace=="Error")
     {
@@ -57,7 +56,7 @@ int main()
                             Klient aktualny;
                             if(aktualny.logowanie(UsedDataBase->tablica,UsedDataBase->ilosc))
                             {
-                                bool check;
+                                bool usunienteKonto, zmienioneDane;
                                 do
                                 {
                                     system("cls");
@@ -74,16 +73,20 @@ int main()
                                             aktualny.wyswietl();
                                             break;
                                         case 'U':
-                                           check=aktualny.usun_konto(UsedDataBase->tablica,UsedDataBase->ilosc,UsedDataBase->plik_wczytujace);
+                                           usunienteKonto=aktualny.usun_konto(UsedDataBase->tablica,UsedDataBase->ilosc,UsedDataBase->plik_wczytujace);
                                             break;
                                         case 'Z':
-                                            check=aktualny.usun_konto(UsedDataBase->tablica,UsedDataBase->ilosc,UsedDataBase->plik_wczytujace);
+                                            zmienioneDane=aktualny.zmiana_danych(UsedDataBase->tablica,UsedDataBase->ilosc,UsedDataBase->plik_wczytujace);
                                             break;
                                         default:
                                             cout<<"Wyjscie"<<endl;
                                             break;
                                     }
-                                }while(wybor!= 'X' && check == false);
+                                    if(zmienioneDane)
+                                    {
+                                        UsedDataBase->ArrayUpdate();
+                                    }
+                                }while(wybor!= 'X' && usunienteKonto == false);
                             }
                         }
                         else if(wybor == 'Z')
@@ -121,6 +124,7 @@ int main()
 
                                             case 'Z':
                                                 admin.znajdz_uzytkownika(UsedDataBase->tablica,UsedDataBase->ilosc,UsedDataBase->plik_wczytujace);
+                                                UsedDataBase->ArrayUpdate();
                                                 break;
 
                                             default:
@@ -128,12 +132,16 @@ int main()
                                                 break;
                                         }
                                    }
-                                            else
+                                    else
                                    {
                                       cout<<"Wyjscie (X)\t"<<endl;
                                       cin>>wybor;
                                    }
-                                   if (wybor == 'S') admin.stworz_konto();
+                                   if (wybor == 'S')
+                                   {
+                                       admin.stworz_konto();
+                                       UsedDataBase->ArrayUpdate();
+                                   }
 
                                }while(wybor!= 'X');
                            }
