@@ -50,7 +50,8 @@ bool Klient::logowanie(string** tab, int il_uzytkownikow)
     else
     {
         system("cls");
-        cout<<"ZLE HASLO\n";
+        cout<<"Z£E HAS£O\n";
+        Sleep(3000);
         return false;
     }
 }

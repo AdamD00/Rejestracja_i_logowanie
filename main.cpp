@@ -3,6 +3,7 @@
 char wybor;
 int main()
 {
+    setlocale(LC_ALL,"");
     BAZA* UsedDataBase = new BAZA();
     if(UsedDataBase->plik_wczytujace=="Error")
     {
@@ -18,8 +19,8 @@ int main()
             if (UsedDataBase->ilosc == 0)
             {
                 cout<<"BAZA DANYCH 2000"<<endl
-                <<"REJESTROWANIE (R)"<<endl
-                <<"WYJSCIE (X)"<<endl;
+                <<"ZAREJESTRUJ SIÊ (R)"<<endl
+                <<"WYJŒCIE (X)"<<endl;
                 cin>>wybor;
                 if(wybor!='X')
                 {
@@ -39,9 +40,9 @@ int main()
                     UsedDataBase->ArrayUpdate();
                     system("cls");
                     cout<<"BAZA DANYCH 2000"<<endl
-                    <<"LOGOWANIE (L)"<<endl
-                    <<"REJESTROWANIE (R)"<<endl
-                    <<"WYJSCIE (X)"<<endl;
+                    <<"ZALOGUJ SIÊ (L)"<<endl
+                    <<"ZAREJESTRUJ SIÊ (R)"<<endl
+                    <<"WYJŒCIE (X)"<<endl;
                     cin>>wybor;
                     if(wybor!='X')
                     {
@@ -62,10 +63,10 @@ int main()
                                     system("cls");
                                     cout<<"BAZA DANYCH 2000"<<endl;
                                     cout<<"User: "<<aktualny.getImie()<<endl;
-                                    cout<<"Wyswietlanie (W)"<<endl
+                                    cout<<"Wyœwietlanie (W)"<<endl
                                     <<"Zmiana danych (Z)"<<endl
-                                    <<"Usun konto (U)"<<endl
-                                    <<"Wyjscie (X)\t"<<endl;
+                                    <<"Usuœ konto (U)"<<endl
+                                    <<"Wyjœcie (X)\t"<<endl;
                                     cin>>wybor;
                                     switch (wybor)
                                     {
@@ -104,13 +105,13 @@ int main()
                                     system("cls");
                                    cout<<"BAZA DANYCH 2000 - Root Mode"<<endl;
                                    cout<<"Operacje na Bazie "<<UsedDataBase->plik_wczytujace<<" zamiana bazy (C)"<<endl;
-                                   cout<<"Stworz konto (S)"<<endl;
+                                   cout<<"Stwórz konto (S)"<<endl;
 
                                    if(UsedDataBase->ilosc>0)
                                    {
-                                       cout<<"Wyswietl wszystkich (W)"<<endl
-                                       <<"Znajdz konto(Z)"<<endl
-                                        <<"Wyjscie (X)\t"<<endl;
+                                       cout<<"Wyœwietl wszystkich (W)"<<endl
+                                       <<"ZnajdŸ konto(Z)"<<endl
+                                        <<"Wyjœcie (X)\t"<<endl;
                                         cin>>wybor;
                                         if(wybor =='C')
                                         {
@@ -128,13 +129,13 @@ int main()
                                                 break;
 
                                             default:
-                                                cout<<"Wyjscie"<<endl;
+                                                cout<<"Wyjœcie"<<endl;
                                                 break;
                                         }
                                    }
                                     else
                                    {
-                                      cout<<"Wyjscie (X)\t"<<endl;
+                                      cout<<"Wyjœcie (X)\t"<<endl;
                                       cin>>wybor;
                                    }
                                    if (wybor == 'S')
