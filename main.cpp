@@ -19,8 +19,8 @@ int main()
             if (UsedDataBase->ilosc == 0)
             {
                 cout<<"BAZA DANYCH 2000"<<endl
-                <<"ZAREJESTRUJ SIÊ (R)"<<endl
-                <<"WYJŒCIE (X)"<<endl;
+                <<"ZAREJESTRUJ SIÄ˜ (R)"<<endl
+                <<"WYJÅšCIE (X)"<<endl;
                 cin>>wybor;
                 if(wybor!='X')
                 {
@@ -40,9 +40,9 @@ int main()
                     UsedDataBase->ArrayUpdate();
                     system("cls");
                     cout<<"BAZA DANYCH 2000"<<endl
-                    <<"ZALOGUJ SIÊ (L)"<<endl
-                    <<"ZAREJESTRUJ SIÊ (R)"<<endl
-                    <<"WYJŒCIE (X)"<<endl;
+                    <<"ZALOGUJ SIÃŠ (L)"<<endl
+                    <<"ZAREJESTRUJ SIÃŠ (R)"<<endl
+                    <<"WYJÅ’CIE (X)"<<endl;
                     cin>>wybor;
                     if(wybor!='X')
                     {
@@ -63,10 +63,10 @@ int main()
                                     system("cls");
                                     cout<<"BAZA DANYCH 2000"<<endl;
                                     cout<<"User: "<<aktualny.getImie()<<endl;
-                                    cout<<"Wyœwietlanie (W)"<<endl
+                                    cout<<"WyÅ“wietlanie (W)"<<endl
                                     <<"Zmiana danych (Z)"<<endl
-                                    <<"Usuœ konto (U)"<<endl
-                                    <<"Wyjœcie (X)\t"<<endl;
+                                    <<"UsuÅ“ konto (U)"<<endl
+                                    <<"WyjÅ“cie (X)\t"<<endl;
                                     cin>>wybor;
                                     switch (wybor)
                                     {
@@ -105,13 +105,13 @@ int main()
                                     system("cls");
                                    cout<<"BAZA DANYCH 2000 - Root Mode"<<endl;
                                    cout<<"Operacje na Bazie "<<UsedDataBase->plik_wczytujace<<" zamiana bazy (C)"<<endl;
-                                   cout<<"Stwórz konto (S)"<<endl;
+                                   cout<<"StwÃ³rz konto (S)"<<endl;
 
                                    if(UsedDataBase->ilosc>0)
                                    {
-                                       cout<<"Wyœwietl wszystkich (W)"<<endl
-                                       <<"ZnajdŸ konto(Z)"<<endl
-                                        <<"Wyjœcie (X)\t"<<endl;
+                                       cout<<"WyÅ“wietl wszystkich (W)"<<endl
+                                       <<"ZnajdÅ¸ konto(Z)"<<endl
+                                        <<"WyjÅ“cie (X)\t"<<endl;
                                         cin>>wybor;
                                         if(wybor =='C')
                                         {
@@ -129,13 +129,13 @@ int main()
                                                 break;
 
                                             default:
-                                                cout<<"Wyjœcie"<<endl;
+                                                cout<<"WyjÅ“cie"<<endl;
                                                 break;
                                         }
                                    }
                                     else
                                    {
-                                      cout<<"Wyjœcie (X)\t"<<endl;
+                                      cout<<"WyjÅ›cie (X)\t"<<endl;
                                       cin>>wybor;
                                    }
                                    if (wybor == 'S')
